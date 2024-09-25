@@ -1,23 +1,18 @@
-﻿using System.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace TodoListApp.ViewModel;
 
-public class MainViewModel : INotifyPropertyChanged
+public partial class MainViewModel : ObservableObject
 {
+    [ObservableProperty]
     string? text;
-    public string? Text
+
+    [RelayCommand]
+    void Add()
     {
-        get => text;
-        set
-        {
-            text = value;
-            OnPropertyChanged(nameof(Text));
-        }
+        // add our item
+        Text = string.Empty;        
     }
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    void OnPropertyChanged(string propertyName)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 }
 
