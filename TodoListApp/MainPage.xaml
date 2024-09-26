@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TodoListApp.MainPage"
-             xmlns:viewmodel="clr-namespace:TodoListApp.ViewModel">
+             xmlns:viewmodel="clr-namespace:TodoListApp.ViewModel"
+             x:DataType="viewmodel:MainViewModel">
 
     <Grid RowDefinitions="100, Auto, *"
           ColumnDefinitions=".75*, .25*"
@@ -16,21 +17,20 @@
 
         <Entry Placeholder="할일 입력" Grid.Row="1" Text="{Binding Text}"/>
         <Button Text="추가"
+                Command="{Binding AddCommand}"
                 Grid.Row="1" Grid.Column="1"/>
 
-        <CollectionView Grid.Row="2" Grid.ColumnSpan="2">
-            <CollectionView.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>사과</x:String>
-                    <x:String>바나나</x:String>
-                    <x:String>오렌지</x:String>
-                </x:Array>
-            </CollectionView.ItemsSource>
+        <CollectionView Grid.Row="2" Grid.ColumnSpan="2"
+                        ItemsSource="{Binding Items}">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
                     <SwipeView>
                         <SwipeView.RightItems>
-                            <SwipeItem Text="삭제" BackgroundColor="Red"/>
+                            <SwipeItem Text="삭제" BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource 
+                                            AncestorType={x:Type viewmodel:MainViewModel}}, 
+                                            Path=DeleteCommand }"
+                                       CommandParameter="{Binding .}"/>
                         </SwipeView.RightItems>
                         <Grid Padding="0,5">
                             <Frame>
