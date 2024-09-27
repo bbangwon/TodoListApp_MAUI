@@ -5,6 +5,9 @@
         public AppShell()
         {
             InitializeComponent();
+
+            //네비게이션
+            Routing.RegisterRoute(nameof(DetailPage), typeof(DetailPage));
         }
     }
 }
