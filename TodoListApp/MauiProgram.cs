@@ -20,6 +20,8 @@ namespace TodoListApp
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddSingleton(Connectivity.Current);
+
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<MainViewModel>();
 
